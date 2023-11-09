@@ -22,13 +22,13 @@ BashOut is a bash script that turns your terminal emulator into a minimalist wri
 
 * Clearing the terminal.
 
-* Echoing you the last line you wrote.
+* Printing the last line you wrote.
 
 * Showing session and word counts.
 
 * Printing an affirmation or reminder, if you set one.
 
-* Presenting a colon (`"`) prompt where you write.
+* Presenting a colon (`:`) prompt where you write.
 
 And that's it. You get nothing more than you need to move forward with your manuscript.
 
