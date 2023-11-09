@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Add an affirmation to yourself
-AFFIRM="Your Afffirmation Here"
+# Add an affirmation to yourself, or comment all lines out for blessed silence.
+#AFFIRM="Your custom afffirmation here"
+AFFIRM=$(shuf -n 1 quotes.txt)
 
 # Configure the save file path and extract the manuscript name
 SAVE_FILE="/path/to/file.txt"
@@ -38,14 +39,14 @@ while true; do
     printf "\033]0;%s\007" "$MANUSCRIPT_NAME"
 
     # Display session and total word counts and an affirmation
-    echo "${TEXT_COLOUR}[${SESSION_WORD_COUNT}/${TOTAL_WORD_COUNT} | ${AFFIRM}]${RESET_COLOUR}"
+    echo "${TEXT_COLOUR}${AFFIRM}${RESET_COLOUR}"
 
     # Display the last sentence from the save file
     LAST_SENTENCE=$(tail -n 1 "$SAVE_FILE")
     echo "$LAST_SENTENCE"
 
     # Read user input
-    read -p ": " NEW_SENTENCE
+    read -p "[${SESSION_WORD_COUNT}/${TOTAL_WORD_COUNT}]: " NEW_SENTENCE
 
     # Check for multiple consecutive blank lines and reduce to one
     if [[ "$NEW_SENTENCE" == "" && "$(tail -n 1 "$SAVE_FILE")" == "" ]]; then
