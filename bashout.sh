@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Add an affirmation to yourself
-AFFIRM="DESCRIBE EVERYTHING!"
+AFFIRM="Your Afffirmation Here"
 
 # Configure the save file path and extract the manuscript name
-SAVE_FILE="RMN_Nano_2023.txt"
+SAVE_FILE="/path/to/file.txt"
 MANUSCRIPT_NAME=$(head -n 1 "$SAVE_FILE")
 
 # Initialize session and total word counts
