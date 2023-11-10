@@ -2,23 +2,28 @@
 
 A simple bash script to turn a terminal emulator into a distraction-free writing environment.
 
-## Idea
+## What it is
 
-I had a vision for a writing app that was super minimalist and not only allowed me to forge ahead with my writing, but forced me to.
+I had an idea for a writing app that was super-minimalist and that gave me no option other than to forge ahead with my writing.
 
-I'd tried the panic-inducing writing tools like 'Write or Die' and 'Most Dangerous Writing App'. You know, the ones that delete your work if you pause long enough to scratch your nose!
+I'd tried other, panic-inducing writing tools that promised this, tools like 'Write or Die' and 'Most Dangerous Writing App'.
+The ones that delete your work if you pause long enough to scratch your nose!
 
-They worked well enough, but not to create decent prose. MDWA got me my first NaNoWriMo success, and I deleted the utterly unusable manuscript the very next day.
+They worked well enough to get a word count up, but not to create decent prose.
+MDWA got me my first NaNoWriMo success.
+And then I deleted the utterly unusable manuscript the very next day.
 
-My idea was an enviroment that separated you from your saved file (so editing wasn't an option) and showed nothing other than what you needed to move forward.
+My idea was an enviroment that separated you from your saved file and showed only what you needed to move forward.
 
 With that in mind, and a little help from ChatGPT, I created BashOut.
 
-## Overview
+## What it does
 
 BashOut is a bash script that turns your terminal emulator into a minimalist writing environment by:
 
 * Setting the terminal window to the name of your manuscript.
+
+* Printing an affirmation or reminder, if you set one, at the top of the window.
 
 * Clearing the terminal.
 
@@ -26,49 +31,76 @@ BashOut is a bash script that turns your terminal emulator into a minimalist wri
 
 * Showing session and word counts.
 
-* Printing an affirmation or reminder, if you set one.
+* Presenting a simple colon (`:`) prompt where you write.
 
-* Presenting a colon (`:`) prompt where you write.
+image::bashout-interface.png[The BashOut interface]
 
 And that's it. You get nothing more than you need to move forward with your manuscript.
 
-## Configuration
+## How to configure it
 
-To use BashOut (assuming you've got a local copy cloned/checkedout/copied/ that's in your $PATH)
+. Ensure the `bashout.sh` file is executable.
 
-. Ensure the `bashout.sh` file is executable (either through your file manager or CLI).
+. Create a file to which your writing will be saved.
 
-. Create a file that your work will be saved to.
+. Open the `bashout.sh` script in your favourite editor/IDE.
 
-. Open the `bashout.sh` in your favourite editor/IDE.
+. Set an affirmation, should you want one, on one of the following lines:
++
+[source.copy,bash]
+----
+#AFFIRM="Your custom afffirmation here"
+AFFIRM=$(shuf -n 1 quotes.txt)
+----
++
+The script defaults to printing a random quote from an included `quotes.txt` file.
+You can:
 
-. Set an affirmation, should you want one, on line 4:
-```
-AFFIRM="Your Afffirmation Here"
-```
+.. Leave it as it is.
 
-. Set the path to the file you created in step 2 on line 7:
-```
+.. Comment out both lines to silence the affirmation.
+
+.. Swap the comment from the `custom` line to the `quotes.txt` line, and add your own preferred output.
+
+. Set the path to the file you created in _Step 2_ on this line:
++
+[source.copy,bash]
+----
 SAVE_FILE="/path/to/file.txt"
-```
+----
 
-. If the title of your manuscript is not the first line in your file, you can manually set a title on line 8:
-Otherwise leave this alone and the script will source the name of your manuscript for the terminal window title.
-```
+. The script will use the first line of your manuscript to set the terminal window title.
+This assumes that the first line of your manuscript is the title.
+If the first line in your file is NOT the title of your manuscript, you can manually set it on this line:
++
+[source.copy,bash]
+----
 MANUSCRIPT_NAME=$(head -n 1 "$SAVE_FILE")
-```
+----
++
+Or, again, you can comment the following line out if you do not wish to use this feature:
++
+[source.copy,bash]
+----
+printf "\033]0;%s\007" "$MANUSCRIPT_NAME"
+----
 
-
-. If you want to change the colour of the wordcount/affirmation line, you can pick an ANSI colour to enter on line 16:
-```
+. If you want to change the colour of the affirmation line, you can pick an ANSI colour to enter on this line:
++
+[source.copy,bash]
+----
 TEXT_COLOUR='\e[34m'
-```
+----
++
+There's a link included to the Wikipedia list of ANSI colour codes. +
+The default is a nice calming blue.
 
-## Usage
+## How to use it
 
-. Run `sh bashout.sh` if you have the script somewhere that's sourced in your $PATH.
-Otherwise run `sh /path/to/bashout.sh`
+. Run `sh /path/to/bashout.sh`
 
-. Exit the script with _Ctrl + C_
+. Write until you can't write any more.
 
-. That's it.
+. Exit with _Ctrl + C_
+
+. That's it!
