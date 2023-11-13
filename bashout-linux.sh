@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Add an affirmation to yourself, or comment all lines out for blessed silence.
-#AFFIRM="Your custom afffirmation here"
-AFFIRM=$(shuf -n 1 quotes.txt)
+# AFFIRM="Your custom affirmation here"
+AFFIRM=$(sort -R quotes.txt | head -n 1)
 
 # Configure the save file path and extract the manuscript name
 SAVE_FILE="/path/to/file.txt"
 MANUSCRIPT_NAME=$(head -n 1 "$SAVE_FILE")
 
 # Initialize session and total word counts
-SESSION_WORD_COUNT=0
 STARTING_WORD_COUNT=$(wc -w "$SAVE_FILE" | cut -f1 -d ' ')
-TOTAL_WORD_COUNT=$(wc -w "$SAVE_FILE" | cut -f1 -d ' ')
+SESSION_WORD_COUNT=0
+TOTAL_WORD_COUNT=$STARTING_WORD_COUNT
 
 # ANSI colour. Get from https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 TEXT_COLOUR='\e[34m'
@@ -20,10 +20,10 @@ RESET_COLOUR='\e[0m'
 # Function to update word counts
 update_word_counts() {
     # Calculate sentence word count (based on spaces)
-    SENTENCE_WORD_COUNT=$(echo "$1" | wc -w)
+    SENTENCE_WORD_COUNT=$(echo "$1" | grep -o '\w\+' | wc -l)
 
     # Get new total word count
-    TOTAL_WORD_COUNT=$(wc -w "$SAVE_FILE" | cut -f1 -d ' ')
+    TOTAL_WORD_COUNT=$(grep -o '\w\+' "$SAVE_FILE" | wc -l)
 
     # Update the session word count
     SESSION_WORD_COUNT=$((TOTAL_WORD_COUNT - STARTING_WORD_COUNT))
