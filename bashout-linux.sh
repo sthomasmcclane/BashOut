@@ -46,7 +46,7 @@ while true; do
     echo "$LAST_SENTENCE"
 
     # Read user input
-    read -p "[${SESSION_WORD_COUNT}/${TOTAL_WORD_COUNT}]: " NEW_SENTENCE
+    read -p "[$(printf "%d" $SESSION_WORD_COUNT)/$(printf "%d" $TOTAL_WORD_COUNT)]: " NEW_SENTENCE
 
     # Check for multiple consecutive blank lines and reduce to one
     if [[ "$NEW_SENTENCE" == "" && "$(tail -n 1 "$SAVE_FILE")" == "" ]]; then

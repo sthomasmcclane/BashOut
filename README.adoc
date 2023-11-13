@@ -39,8 +39,6 @@ And that's it. You get nothing more than you need to move forward with your manu
 
 ## How to configure it
 
-. Ensure the `bashout.sh` file is executable.
-
 . Create a file to which your writing will be saved.
 
 . Open the `bashout.sh` script in your favourite editor/IDE.
@@ -96,6 +94,15 @@ There's a link included to the Wikipedia list of ANSI colour codes. +
 The default is a nice calming blue.
 
 ## How to use it
+
+. Download the version for your preferred operating system.
++
+* If you're using Cygwin in Windows, you should use the `-win` version.
+
+* If you're using WSL, you should use the `-linux` version.
+
+. Make the downloaded file executable.
+Methods will differ based on your environment.
 
 . Run `sh /path/to/bashout.sh` in either a terminal emulator or a TTY session.
 
