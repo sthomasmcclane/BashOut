@@ -97,7 +97,7 @@ The default is a nice calming blue.
 
 ## How to use it
 
-. Run `sh /path/to/bashout.sh`
+. Run `sh /path/to/bashout.sh` in either a terminal emulator or a TTY session.
 
 . Write until you can't write any more.
 
