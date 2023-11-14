@@ -14,8 +14,8 @@ SESSION_WORD_COUNT=0
 TOTAL_WORD_COUNT=$STARTING_WORD_COUNT
 
 # ANSI colour. Get from https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-TEXT_COLOUR='\e[34m'
-RESET_COLOUR='\e[0m'
+#TEXT_COLOUR='\e[34m'
+#RESET_COLOUR='\e[0m'
 
 # Function to update word counts
 update_word_counts() {
@@ -38,8 +38,8 @@ while true; do
     # Display the manuscript name as the window title
     printf "\033]0;%s\007" "$MANUSCRIPT_NAME"
 
-    # Display session and total word counts and an affirmation
-    echo "${TEXT_COLOUR}${AFFIRM}${RESET_COLOUR}"
+    # Display an affirmation
+    printf "\e[34m%s\e[0m\n" "${AFFIRM}"
 
     # Display the last sentence from the save file
     LAST_SENTENCE=$(tail -n 1 "$SAVE_FILE")
@@ -47,6 +47,7 @@ while true; do
 
     # Read user input
     read -p "[$(printf "%d" $SESSION_WORD_COUNT)/$(printf "%d" $TOTAL_WORD_COUNT)]: " NEW_SENTENCE
+    #echo "${TEXT_COLOUR}${AFFIRM}${RESET_COLOUR}"
 
     # Check for multiple consecutive blank lines and reduce to one
     if [[ "$NEW_SENTENCE" == "" && "$(tail -n 1 "$SAVE_FILE")" == "" ]]; then
