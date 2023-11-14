@@ -20,10 +20,10 @@ RESET_COLOUR='\e[0m'
 # Function to update word counts
 update_word_counts() {
     # Calculate sentence word count (based on spaces)
-    SENTENCE_WORD_COUNT=$(echo "$1" | grep -o '\w\+' | wc -l)
+    SENTENCE_WORD_COUNT=$(echo "$1" | wc -w)
 
     # Get new total word count
-    TOTAL_WORD_COUNT=$(grep -o '\w\+' "$SAVE_FILE" | wc -l)
+    TOTAL_WORD_COUNT=$(wc -w "$SAVE_FILE" | cut -f1 -d ' ')
 
     # Update the session word count
     SESSION_WORD_COUNT=$((TOTAL_WORD_COUNT - STARTING_WORD_COUNT))
