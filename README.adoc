@@ -47,7 +47,7 @@ And that's it. You get nothing more than you need to move forward with your manu
 +
 [source.copy,bash]
 ----
-#AFFIRM="Your custom afffirmation here"
+#AFFIRM="Your custom affirmation here"
 AFFIRM=$(shuf -n 1 quotes.txt)
 ----
 +
@@ -64,7 +64,7 @@ You can:
 +
 [source.copy,bash]
 ----
-SAVE_FILE="/path/to/file.txt"
+SAVE_FILE="test.txt"
 ----
 
 . The script will use the first line of your manuscript to set the terminal window title.

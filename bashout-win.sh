@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Add an affirmation to yourself, or comment all lines out for blessed silence.
-#AFFIRM="Your custom afffirmation here"
+#AFFIRM="Your custom affirmation here"
 AFFIRM=$(shuf -n 1 quotes.txt)
 
 # Configure the save file path and extract the manuscript name
-SAVE_FILE="/cygdrive/c/path/to/file.txt"
+SAVE_FILE="/cygdrive/c/test.txt"
 MANUSCRIPT_NAME=$(head -n 1 "$SAVE_FILE")
 
 # Initialize session and total word counts

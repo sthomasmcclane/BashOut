@@ -5,7 +5,7 @@
 AFFIRM=$(sort -R quotes.txt | head -n 1)
 
 # Configure the save file path and extract the manuscript name
-SAVE_FILE="/path/to/file.txt"
+SAVE_FILE="test.txt"
 MANUSCRIPT_NAME=$(head -n 1 "$SAVE_FILE")
 
 # Initialize session and total word counts
