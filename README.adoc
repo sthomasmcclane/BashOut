@@ -33,7 +33,7 @@ BashOut is a bash script that turns your terminal emulator into a minimalist wri
 
 * Presenting a simple colon (`:`) prompt where you write.
 
-image::bashout-interface.png[The BashOut interface]
+image::interface.png[The BashOut interface]
 
 And that's it. You get nothing more than you need to move forward with your manuscript.
 
