@@ -1,11 +1,30 @@
 #!/bin/bash
 
+read -p "Choose a banner style: " style
+
+case style in
+	"Inspirational quote") 
+		banner_file=./resources/quotes.txt
+		;;
+
+	"Reminder")
+		read -p "Enter your reminder: " remind
+		echo "$remind" > ./resources/reminder.txt
+		banner_file=./resources/reminder.txt
+		;;
+		
+	"Style prompt")
+		bash styles.sh
+		banner_file=./resources/style.txt
+		;;
+esac
+
 # Add an affirmation to yourself, or comment all lines out for blessed silence.
-# AFFIRM="Your custom affirmation here"
-AFFIRM=$(sort -R quotes.txt | head -n 1)
+# BANNER="Your custom affirmation here"
+BANNER=$(sort -R $banner_file | head -n 1)
 
 # Configure the save file path and extract the manuscript name
-SAVE_FILE="test.txt"
+SAVE_FILE=./work/output.txt
 MANUSCRIPT_NAME=$(head -n 1 "$SAVE_FILE")
 
 # Initialize session and total word counts
@@ -36,10 +55,10 @@ while true; do
     clear
 
     # Display the manuscript name as the window title
-    printf "\033]0;%s\007" "$MANUSCRIPT_NAME"
+    #printf "\033]0;%s\007" "$MANUSCRIPT_NAME"
 
-    # Display an affirmation
-    printf "\e[34m%s\e[0m\n" "${AFFIRM}"
+    # Display a banner
+    printf "\e[34m%s\e[0m\n" "${BANNER}"
 
     # Display the last sentence from the save file
     LAST_SENTENCE=$(tail -n 1 "$SAVE_FILE")
@@ -47,7 +66,7 @@ while true; do
 
     # Read user input
     read -p "[$(printf "%d" $SESSION_WORD_COUNT)/$(printf "%d" $TOTAL_WORD_COUNT)]: " NEW_SENTENCE
-    #echo "${TEXT_COLOUR}${AFFIRM}${RESET_COLOUR}"
+    #echo "${TEXT_COLOUR}${BANNER}${RESET_COLOUR}"
 
     # Check for multiple consecutive blank lines and reduce to one
     if [[ "$NEW_SENTENCE" == "" && "$(tail -n 1 "$SAVE_FILE")" == "" ]]; then
