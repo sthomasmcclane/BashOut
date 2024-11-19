@@ -31,12 +31,12 @@ The interactive mode will prompt you to choose a banner style.
 +
 You will be presented with a menu to choose a banner style:
 +
-Inspirational quote:: Displays a random quote from `resources/quotes.txt`. Feel free to add more quotes to this file.
+1 - Inspirational quote:: Displays a random quote from `resources/quotes.txt`. Feel free to add more quotes to this file.
 
-Reminder:: Prompts you to enter a reminder, which is then displayed as the banner.
+2 - Reminder:: Prompts you to enter a reminder, which is then displayed as the banner.
 Use this if you need to keep something in mind while writing.
 
-Style prompt:: Generates a random writing style prompt. For example:
+3 -  Style prompt:: Generates a random writing style prompt. For example:
 +
 ```bash
 Create a uplifting, steadily-paced story with an informal voice in past-tense from a second-person point of view.
