@@ -3,8 +3,6 @@
 BashOut is a simple Bash script designed to help you focus on writing by providing a clean interface and tracking your word count.
 It offers inspirational banners, reminders, and style prompts to get your creative juices flowing.
 
-image::interface.png[]
-
 == Installation and Setup
 
 .  Fork and clone this repository.
@@ -93,14 +91,22 @@ While in the writing interface, the script:
 
 . Prompts you for a new sentence.
 
+image::interface.png[]
+
 == Writing text
 
 . Type (and edit) your text as you normally would.
 
 . When you finish a line or a paragraph, press the `[Enter]` key.
-Your text will be cleared from the interface.
+The script will:
++
+.. Clear your text from the interface.
 
-. The script saves your text to a local file (`work/output.txt`) and updates the last sentence display.
+.. Save it to a local file (`work/output.txt`).
+
+.. Update the last sentence display with the latest entry.
+
+.. Increment the total and session word counts appropriately.
 
 . The interface will be clear and ready for further text to be typed.
 
