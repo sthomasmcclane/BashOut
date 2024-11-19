@@ -14,16 +14,22 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 SAVE_FILE="$SCRIPT_DIR/work/output.txt"
 RESOURCE_DIR="$SCRIPT_DIR/resources"
 
-# Create work directory and output file (if they don't exist)
+# Create work directory and output file if they don't exist
+mkdir -p "$(dirname "$SAVE_FILE")" || { echo "Error: Cannot create directory for $SAVE_FILE"; exit 1; } # Create parent dir
 touch "$SAVE_FILE" || { echo "Error: Cannot create $SAVE_FILE"; exit 1; }
 
-echo "Choose a banner style:"
-echo "1: Inspirational quote"
-echo "2: Reminder"
-echo "3: Style prompt"
-read choice
+# Check if a command-line argument is provided
+if [[ -n "$1" ]]; then
+    choice="$1"  # Use the invocation argument as the choice
+else
+    echo "Choose a banner style:"
+    echo "1: Inspirational quote"
+    echo "2: Reminder"
+    echo "3: Style prompt"
+    read choice
+fi
 
-case $choice in  # Corrected: Use $choice, not $style
+case $choice in  
 	1) banner_file="$RESOURCE_DIR/quotes.txt" #Use absolute path
 		;;
 

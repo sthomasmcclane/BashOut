@@ -1,102 +1,114 @@
 = BashOut: A Simple Writing App Script
 
 BashOut is a simple Bash script designed to help you focus on writing by providing a clean interface and tracking your word count.
-It also offers inspirational banners, reminders, or style prompts to get your creative juices flowing.
+It offers inspirational banners, reminders, and style prompts to get your creative juices flowing.
 
 image::interface.png[]
 
-== Usage
+== Installation and Setup
 
-.  Fork this repo.
-
-. Clone your fork locally.
+.  Fork and clone this repository.
 
 .  Make the scripts executable:
 +
 ```bash
-chmod +x /path/to/repo/bashout.sh /path/to/repo/styles.sh
+chmod +x bashout.sh styles.sh
 ```
+
+== Usage
+
+The script can be started in two ways; <<interactive mode>> and <<automatic mode>>.
+
+=== Menu mode
+
+The interactive mode will prompt you to choose a banner style.
 
 .  Run the script:
 +
 ```
 ./bashout.sh
 ```
++
+You will be presented with a menu to choose a banner style:
++
+Inspirational quote:: Displays a random quote from `resources/quotes.txt`. Feel free to add more quotes to this file.
 
-The script will present you with a menu to choose a banner style:
+Reminder:: Prompts you to enter a reminder, which is then displayed as the banner.
+Use this if you need to keep something in mind while writing.
 
-Inspirational quote:: Displays a random affirmation from an included quotes list.
-Feel free to add more affirmations to `resources/quotes.txt`.
+Style prompt:: Generates a random writing style prompt. For example:
++
+```bash
+Create a uplifting, steadily-paced story with an informal voice in past-tense from a second-person point of view.
+```
 
-Reminder:: Prompts you to for a reminder, which is then displayed as the banner.
-Use this if you need to keep something in mind during a writing session.
+[NOTE]
+====
+If you enter an invalid menu option, the writing interface will still launch but the banner will show:
 
-Style prompt:: Generates a random writing style prompt from multiple options and displays it.
+```bash
+No banner available.
+```
+
+=== Direct mode
+
+Automatic mode takes the banner choice as an argument from the invocation command, bypassing the menu.
+
+. Run the script:
++
+```bash
+./bashout.sh <N>
+```
++
+Where `<N>` is the number of the banner style you want as listed in the previous section.
 For example:
 +
 ```bash
-Create a uplifting, steadily-paced story with a informal voice in past-tense from a second-person point of view.
+./bashout.sh 1
 ```
-
-After selecting a banner, the script:
-
-.  Clears the screen.
-
-.  Displays the chosen banner.
-
-.  Displays the last sentence you wrote (if any).
-This is read from a local save file (`work/output.txt`).
-
-.  Prompts you to enter a new sentence, showing your session and total word counts.
-
-.  Appends each new sentence to the local save file.
-
-Press `[Ctrl+C]` to exit the script.
-You do not need to do a 'Save', as your input is written to file each time you hit `[Enter]`.
-
-== Functionality
-
-Banner Selection:: The script handles banner selection and display.
-
-Style Prompt Generation:: The script generates random style prompts using predefined lists for:
 +
-* Voice
+This command would launch the script with the inspirational quote banner style.
 
-* Tone
+[NOTE]
+====
+If you pass an invalid argument, the writing interface will still launch but the banner will show:
 
-* Pace
-
-* POV
-
-* Tense
-
-Word Count Tracking:: The main script tracks your session and total word counts.
-
-Saving Progress:: Your writing is automatically saved to `work/output.txt`.
-
-== Configuration and Tweaks
-
-=== `.gitignore` Modifications
-
-By default, the `resources/` and `work/` directories are ignored by Git.
-You can modify this behavior:
-
-To track changes to resource files:: Remove `resources/` from `.gitignore`.
-This allows you to commit changes to the quotes, reminders, or style prompt files.
-The `quotes.txt` file is included in Git control by default in case you make changes to it:
-+
 ```bash
-!resources/quotes.txt
+No banner available.
 ```
 
-To track `output.txt`::  Remove `work/` from `.gitignore` to include your writing in your Git repository.
-This is generally not recommended unless you are choosing to use Git to back up your work.
+== Writing
 
-=== Changing Banner Color
+While in the writing interface, the script:
 
-The banner text color is currently set to a soothing blue (`\e[94m`).
-You can change this by modifying the `printf` command in `bashout.sh`.
-For example, to change the color to red:
+. Clears the screen.
+
+. Displays the chosen banner.
+
+. Displays the last sentence you wrote (if any).
+
+. Shows your session and total word counts.
+
+. Prompts you for a new sentence.
+
+. Saves the new sentence and updates the last sentence display.
+
+Press `Ctrl+C` to exit.
+
+== Configuration and Customization
+
+=== `.gitignore`
+
+By default, the `resources/` directory (except for `quotes.txt`) and the `work/` directory are ignored by Git.
+You can modify `.gitignore` to track these files if desired.
+For example, to track `output.txt`:
+
+*   Remove `work/output.txt` from `.gitignore`.
+
+=== Banner Color
+
+Change the banner text color by modifying the `printf` command in `bashout.sh`.
+For example, to change to red:
 
 ```bash
 printf "\e[91m%s\e[0m\n" "$BANNER"
@@ -106,15 +118,12 @@ Refer to an ANSI escape code chart for other color codes.
 
 === Other Tweaks
 
-Custom Banner Files:: You could add more banner options by creating new text files in the `resources` directory and adding corresponding cases to the `case` statement in `bashout.sh`.
+Custom Banners:: Add more banner options by creating new text files in the `resources` directory and updating the `case` statement in `bashout.sh`.
 
-More affirmations:: You can add more affirmations to the `resources/quotes.txt` file.
-You could also modify the script to offer a new affirmation each time you hit `[Enter]`.
-
-Modifying Style Prompts::  Edit the lists in `styles.sh` (`voicelist` or `tonelist`, for example) to customize the generated style prompts.
+Modifying Style Prompts:: Edit the lists in `styles.sh` (e.g., `voicelist`, `tonelist`) to customize the generated prompts.
 
 Saving Location:: Change the `SAVE_FILE` variable in `bashout.sh` to save your writing to a different location.
 
-Starting Word Count:: Session word counts will always start at `0`.
-If you want the total word count to also reset, move (or remove) the `work/output.txt` file.
-The script will create a new file when it is next run.
+Resetting Word Count:: To reset the total word count, delete or move `work/output.txt`.
+The script will create a new file on next run.
+The session word count always starts at zero.
