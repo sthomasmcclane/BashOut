@@ -3,15 +3,25 @@
 BashOut is a simple Bash script designed to help you focus on writing by providing a clean interface and tracking your word count.
 It also offers inspirational banners, reminders, or style prompts to get your creative juices flowing.
 
+image::interface.png[]
+
 == Usage
 
 .  Fork this repo.
 
 . Clone your fork locally.
 
-.  Make the scripts executable: `chmod +x /path/to/repo/bashout.sh /path/to/repo/styles.sh`
+.  Make the scripts executable:
++
+```bash
+chmod +x /path/to/repo/bashout.sh /path/to/repo/styles.sh
+```
 
-.  Run the script: `./bashout.sh`
+.  Run the script:
++
+```
+./bashout.sh
+```
 
 The script will present you with a menu to choose a banner style:
 
@@ -19,10 +29,11 @@ Inspirational quote:: Displays a random affirmation from an included quotes list
 Feel free to add more affirmations to `resources/quotes.txt`.
 
 Reminder:: Prompts you to for a reminder, which is then displayed as the banner.
-Use this if you need to keep something in mind during this writing session.
+Use this if you need to keep something in mind during a writing session.
 
 Style prompt:: Generates a random writing style prompt from multiple options and displays it.
 For example:
++
 ```bash
 Create a uplifting, steadily-paced story with a informal voice in past-tense from a second-person point of view.
 ```
