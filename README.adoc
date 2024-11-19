@@ -108,6 +108,9 @@ Refer to an ANSI escape code chart for other color codes.
 
 Custom Banner Files:: You could add more banner options by creating new text files in the `resources` directory and adding corresponding cases to the `case` statement in `bashout.sh`.
 
+More affirmations:: You can add more affirmations to the `resources/quotes.txt` file.
+You could also modify the script to offer a new affirmation each time you hit `[Enter]`.
+
 Modifying Style Prompts::  Edit the lists in `styles.sh` (`voicelist` or `tonelist`, for example) to customize the generated style prompts.
 
 Saving Location:: Change the `SAVE_FILE` variable in `bashout.sh` to save your writing to a different location.
