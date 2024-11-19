@@ -13,10 +13,6 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 # Construct paths relative to the script's directory
 SAVE_FILE="$SCRIPT_DIR/work/output.txt"
 RESOURCE_DIR="$SCRIPT_DIR/resources"
-DEBUG_LOG="$SCRIPT_DIR/debug.log"  # Define the debug log file
-
-# Clear contents of the debug log, to prevent redundant entries with a new session.
-echo "" > "$DEBUG_LOG"
 
 # Create work directory and output file (if they don't exist)
 touch "$SAVE_FILE" || { echo "Error: Cannot create $SAVE_FILE"; exit 1; }
@@ -43,7 +39,6 @@ case $choice in  # Corrected: Use $choice, not $style
        ;;
 
     3) bash "$SCRIPT_DIR/styles.sh"  # Execute styles.sh
-       echo "banner_file after styles.sh: $banner_file" >> "$DEBUG_LOG" # Redirect to log file
         banner_file="$RESOURCE_DIR/style.txt" #Use absolute path
 		;;
 esac
@@ -54,7 +49,6 @@ if [[ -s "$banner_file" ]]; then
 else
   BANNER="No banner available."  # Or handle the empty file case differently
 fi
-
 
 # Initialize word counts (AFTER creating the file)
 STARTING_WORD_COUNT=$(wc -w "$SAVE_FILE" | cut -f1 -d ' ')

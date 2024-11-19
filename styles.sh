@@ -5,8 +5,6 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 
 # Construct paths relative to the script's directory
 RESOURCE_DIR="$SCRIPT_DIR/resources"
-DEBUG_LOG="$SCRIPT_DIR/debug.log"  # Define the debug log file
-
 
 # Define your lists
 voicelist=("formal" "informal" "conversational" "professional" "academic" "playful" "sarcastic" "intimate" "detached")

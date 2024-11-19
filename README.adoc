@@ -1,110 +1,106 @@
-# BashOut
+= BashOut: A Simple Writing App Script
 
-A simple bash script to turn a terminal emulator into a distraction-free writing environment.
+BashOut is a simple Bash script designed to help you focus on writing by providing a clean interface and tracking your word count.
+It also offers inspirational banners, reminders, or style prompts to get your creative juices flowing.
 
-## What it is
+== Usage
 
-I had an idea for a writing app that was super-minimalist and that gave me no option other than to forge ahead with my writing.
+.  Fork this repo.
 
-I'd tried other, panic-inducing writing tools that promised this, tools like 'Write or Die' and 'Most Dangerous Writing App'.
-The ones that delete your work if you pause long enough to scratch your nose!
+. Clone your fork locally.
 
-They worked well enough to get a word count up, but not to create decent prose.
-MDWA got me my first NaNoWriMo success.
-And then I deleted the utterly unusable manuscript the very next day.
+.  Make the scripts executable: `chmod +x /path/to/repo/bashout.sh /path/to/repo/styles.sh`
 
-My idea was an enviroment that separated you from your saved file and showed only what you needed to move forward.
+.  Run the script: `./bashout.sh`
 
-With that in mind, and a little help from ChatGPT, I created BashOut.
+The script will present you with a menu to choose a banner style:
 
-## What it does
+Inspirational quote:: Displays a random affirmation from an included quotes list.
+Feel free to add more affirmations to `resources/quotes.txt`.
 
-BashOut is a bash script that turns your terminal emulator into a minimalist writing environment by:
+Reminder:: Prompts you to for a reminder, which is then displayed as the banner.
+Use this if you need to keep something in mind during this writing session.
 
-* Setting the terminal window to the name of your manuscript.
+Style prompt:: Generates a random writing style prompt from multiple options and displays it.
+For example:
+```bash
+Create a uplifting, steadily-paced story with a informal voice in past-tense from a second-person point of view.
+```
 
-* Printing an affirmation or reminder, if you set one, at the top of the window.
+After selecting a banner, the script:
 
-* Clearing the terminal.
+.  Clears the screen.
 
-* Printing the last line you wrote.
+.  Displays the chosen banner.
 
-* Showing session and word counts.
+.  Displays the last sentence you wrote (if any).
+This is read from a local save file (`work/output.txt`).
 
-* Presenting a simple colon (`:`) prompt where you write.
+.  Prompts you to enter a new sentence, showing your session and total word counts.
 
-image::interface.png[The BashOut interface]
+.  Appends each new sentence to the local save file.
 
-And that's it. You get nothing more than you need to move forward with your manuscript.
+Press `[Ctrl+C]` to exit the script.
+You do not need to do a 'Save', as your input is written to file each time you hit `[Enter]`.
 
-## How to configure it
+== Functionality
 
-. Create a file to which your writing will be saved.
+Banner Selection:: The script handles banner selection and display.
 
-. Open the `bashout.sh` script in your favourite editor/IDE.
-
-. Set an affirmation, should you want one, on one of the following lines:
+Style Prompt Generation:: The script generates random style prompts using predefined lists for:
 +
-[source.copy,bash]
-----
-#AFFIRM="Your custom affirmation here"
-AFFIRM=$(shuf -n 1 quotes.txt)
-----
+* Voice
+
+* Tone
+
+* Pace
+
+* POV
+
+* Tense
+
+Word Count Tracking:: The main script tracks your session and total word counts.
+
+Saving Progress:: Your writing is automatically saved to `work/output.txt`.
+
+== Configuration and Tweaks
+
+=== `.gitignore` Modifications
+
+By default, the `resources/` and `work/` directories are ignored by Git.
+You can modify this behavior:
+
+To track changes to resource files:: Remove `resources/` from `.gitignore`.
+This allows you to commit changes to the quotes, reminders, or style prompt files.
+The `quotes.txt` file is included in Git control by default in case you make changes to it:
 +
-The script defaults to printing a random quote from an included `quotes.txt` file.
-You can:
+```bash
+!resources/quotes.txt
+```
 
-.. Leave it as it is.
+To track `output.txt`::  Remove `work/` from `.gitignore` to include your writing in your Git repository.
+This is generally not recommended unless you are choosing to use Git to back up your work.
 
-.. Comment out both lines to silence the affirmation.
+=== Changing Banner Color
 
-.. Swap the comment from the `custom` line to the `quotes.txt` line, and add your own preferred output.
+The banner text color is currently set to a soothing blue (`\e[94m`).
+You can change this by modifying the `printf` command in `bashout.sh`.
+For example, to change the color to red:
 
-. Set the path to the file you created in _Step 2_ on this line:
-+
-[source.copy,bash]
-----
-SAVE_FILE="test.txt"
-----
+```bash
+printf "\e[91m%s\e[0m\n" "$BANNER"
+```
 
-. The script will use the first line of your manuscript to set the terminal window title.
-This assumes that the first line of your manuscript is the title.
-If the first line in your file is NOT the title of your manuscript, you can manually set it on this line:
-+
-[source.copy,bash]
-----
-MANUSCRIPT_NAME=$(head -n 1 "$SAVE_FILE")
-----
-+
-Or, again, you can comment the following line out if you do not wish to use this feature:
-+
-[source.copy,bash]
-----
-printf "\033]0;%s\007" "$MANUSCRIPT_NAME"
-----
+Refer to an ANSI escape code chart for other color codes.
 
-. If you want to change the colour of the affirmation line, you can pick an ANSI colour to enter on this line:
-+
-[source.copy,bash]
-----
-TEXT_COLOUR='\e[34m'
-----
-+
-There's a link included to the Wikipedia list of ANSI colour codes. +
-The default is a nice calming blue.
+=== Other Tweaks
 
-## How to use it
+Custom Banner Files:: You could add more banner options by creating new text files in the `resources` directory and adding corresponding cases to the `case` statement in `bashout.sh`.
 
-. Download the file.
-It should run natively in Linux Bash, macOS Zsh and Windows WSL environments.
+Modifying Style Prompts::  Edit the lists in `styles.sh` (`voicelist` or `tonelist`, for example) to customize the generated style prompts.
 
-. Make the script executable.
-Methods will differ based on your environment.
+Saving Location:: Change the `SAVE_FILE` variable in `bashout.sh` to save your writing to a different location.
 
-. Run `sh /path/to/bashout.sh` in either a terminal emulator or a TTY session.
-
-. Write until you can't write any more.
-
-. Exit with _Ctrl + C_
-
-. That's it!
+Starting Word Count:: Session word counts will always start at `0`.
+If you want the total word count to also reset, move (or remove) the `work/output.txt` file.
+The script will create a new file when it is next run.
