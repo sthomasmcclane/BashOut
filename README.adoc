@@ -19,7 +19,7 @@ chmod +x bashout.sh styles.sh
 
 The script can be started in two ways; <<interactive mode>> and <<automatic mode>>.
 
-=== Menu mode
+=== Interactive mode
 
 The interactive mode will prompt you to choose a banner style.
 
@@ -50,7 +50,7 @@ If you enter an invalid menu option, the writing interface will still launch but
 No banner available.
 ```
 
-=== Direct mode
+=== Automatic mode
 
 Automatic mode takes the banner choice as an argument from the invocation command, bypassing the menu.
 
