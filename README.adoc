@@ -79,7 +79,7 @@ No banner available.
 ```
 ====
 
-== Writing
+== Writing interface
 
 While in the writing interface, the script:
 
@@ -93,9 +93,19 @@ While in the writing interface, the script:
 
 . Prompts you for a new sentence.
 
-. Saves the new sentence and updates the last sentence display.
+== Writing text
 
-Press `Ctrl+C` to exit.
+. Type (and edit) your text as you normally would.
+
+. When you finish a line or a paragraph, press the `[Enter]` key.
+Your text will be cleared from the interface.
+
+. The script saves your text to a local file (`work/output.txt`) and updates the last sentence display.
+
+. The interface will be clear and ready for further text to be typed.
+
+. To exit the script, press `Ctrl+C`.
+Be sure to hit `[Enter]` before you do to save your latest input.
 
 == Configuration and Customization
 
