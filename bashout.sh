@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ###################################################################
 # Some files are excluded from git commits in the .gitignore file #
 # Check this file and adjust accordingly if you plan to add new   #
@@ -24,7 +23,7 @@ if [[ -n "$1" ]]; then
 else
     echo "Choose a banner style:"
     echo "1: Inspirational quote"
-    echo "2: Reminder"
+    echo "2: Note"
     echo "3: Style prompt"
     read choice
 fi
@@ -33,15 +32,15 @@ case $choice in
 	1) banner_file="$RESOURCE_DIR/quotes.txt" #Use absolute path
 		;;
 
-	2) read -p "Enter your reminder: " remind
+	2) read -p "Enter your note: " remind
 
-       # Create reminder.txt if it doesn't exist (only for option 2)
-       if [[ ! -f "$RESOURCE_DIR/reminder.txt" ]]; then  # -f checks for a regular file
-           touch "$RESOURCE_DIR/reminder.txt" || { echo "Error creating $RESOURCE_DIR/reminder.txt"; exit 1; }
+       # Create note.txt if it doesn't exist (only for option 2)
+       if [[ ! -f "$RESOURCE_DIR/note.txt" ]]; then  # -f checks for a regular file
+           touch "$RESOURCE_DIR/note.txt" || { echo "Error creating $RESOURCE_DIR/note.txt"; exit 1; }
        fi
 
-       echo "$remind" > "$RESOURCE_DIR/reminder.txt"
-       banner_file="$RESOURCE_DIR/reminder.txt"
+       echo "$remind" > "$RESOURCE_DIR/note.txt"
+       banner_file="$RESOURCE_DIR/note.txt"
        ;;
 
     3) bash "$SCRIPT_DIR/styles.sh"  # Execute styles.sh
