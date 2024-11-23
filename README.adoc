@@ -1,7 +1,7 @@
 = BashOut: A Simple Writing App Script
 
 BashOut is a simple Bash script designed to help you focus on writing by providing a clean interface and tracking your word count.
-It offers inspirational banners, reminders, and style prompts to get your creative juices flowing.
+It offers inspirational banners, notes, and style prompts to get your creative juices flowing.
 
 == Installation and Setup
 
@@ -31,8 +31,8 @@ You will be presented with a menu to choose a banner style:
 +
 1 - Inspirational quote:: Displays a random quote from `resources/quotes.txt`. Feel free to add more quotes to this file.
 
-2 - Reminder:: Prompts you to enter a reminder, which is then displayed as the banner.
-Use this if you need to keep something in mind while writing.
+2 - Note:: Prompts you to enter a note, which is then displayed as the banner.
+There is no length limit to the note.
 
 3 -  Style prompt:: Generates a random writing style prompt. For example:
 +
