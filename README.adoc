@@ -10,7 +10,7 @@ It offers inspirational banners, notes, and style prompts to get your creative j
 .  Make the scripts executable:
 +
 ```bash
-chmod +x bashout.sh styles.sh
+chmod +x /path/to/bashout.sh /path/to/styles.sh
 ```
 
 == Usage
@@ -102,7 +102,7 @@ The script will:
 +
 .. Clear your text from the interface.
 
-.. Save it to a local file (`work/output.txt`).
+.. Save it to a local file (`~/Documents/output.txt`).
 
 .. Update the last sentence display with the latest entry.
 
@@ -117,15 +117,11 @@ Be sure to hit `[Enter]` before you do to save your latest input.
 
 === `.gitignore`
 
-By default, the `resources/` directory (except for `quotes.txt`) and the `work/` directory are ignored by Git.
-You can modify `.gitignore` to track these files if desired.
-For example, to track `output.txt`:
-
-*   Remove `work/output.txt` from `.gitignore`.
+By default, the `resources/` directory (except for `quotes.txt`) directory is ignored by Git.
 
 === Banner Color
 
-Change the banner text color by modifying the `printf` command in `bashout.sh`.
+Change the banner text color by modifying a `printf` command in `bashout.sh`.
 For example, to change to red:
 
 ```bash

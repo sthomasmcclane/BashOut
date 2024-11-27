@@ -1,5 +1,4 @@
 .vscode
 debug.log
-work/output.txt
 resources/
 !resources/quotes.txt

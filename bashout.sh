@@ -10,7 +10,7 @@
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 
 # Construct paths relative to the script's directory
-SAVE_FILE="$SCRIPT_DIR/work/output.txt"
+SAVE_FILE="$HOME/Documents/output.txt"
 RESOURCE_DIR="$SCRIPT_DIR/resources"
 
 # Create work directory and output file if they don't exist
