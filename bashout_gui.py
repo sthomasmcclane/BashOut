@@ -14,6 +14,18 @@ from PyQt5.QtGui import QFont, QPalette, QColor, QKeyEvent, QPainter, QTextOptio
 # Constants
 CONFIG_FILE = Path.home() / '.bashout_config.json'
 DEFAULT_SAVE_DIR = Path.home() / 'Documents' / 'BashOut'
+BASHOUTRC = Path.home() / '.bashoutrc'
+
+# Helper to read ~/.bashoutrc key:value pairs
+bashoutrc_defaults = {}
+if BASHOUTRC.exists():
+    with open(BASHOUTRC, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#') or ':' not in line:
+                continue
+            key, value = line.split(':', 1)
+            bashoutrc_defaults[key.strip().upper()] = value.strip()
 
 def check_and_install_dependencies():
     """Check for required packages and install if missing."""
@@ -86,7 +98,10 @@ class CenteredPlaceholderTextEdit(QTextEdit):
 class BashOutWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.current_theme = 'light'
+        # Use bashoutrc values as defaults
+        self.current_theme = bashoutrc_defaults.get('GUI_THEME', 'light')
+        self.font_size_default = int(bashoutrc_defaults.get('GUI_FONT_SIZE', 12))
+        self.save_dir = Path(bashoutrc_defaults.get('SAVE_FILE', str(DEFAULT_SAVE_DIR))).expanduser().parent
         self.current_manuscript = None
         self.load_config()
         self.init_ui()
@@ -98,10 +113,9 @@ class BashOutWindow(QMainWindow):
         if CONFIG_FILE.exists():
             with open(CONFIG_FILE, 'r') as f:
                 config = json.load(f)
-                self.save_dir = Path(config.get('save_dir', str(DEFAULT_SAVE_DIR)))
+                self.save_dir = Path(config.get('save_dir', str(self.save_dir)))
                 self.current_manuscript = config.get('current_manuscript')
         else:
-            self.save_dir = DEFAULT_SAVE_DIR
             self.save_dir.mkdir(parents=True, exist_ok=True)
             self.show_first_run_dialog()
 
@@ -231,7 +245,7 @@ class BashOutWindow(QMainWindow):
         self.input_field = CenteredPlaceholderTextEdit(
             "Type your text here. Press Enter to add to saved file.\nCmd+N: New manuscript | Cmd+R: Rename manuscript"
         )
-        self.input_field.setFont(QFont('Helvetica', 12))
+        self.input_field.setFont(QFont('Helvetica', self.font_size_default))
         self.input_field.textChanged.connect(self.on_text_changed)
         self.input_field.installEventFilter(self)
         layout.addWidget(self.input_field)
@@ -244,7 +258,7 @@ class BashOutWindow(QMainWindow):
         font_size_label.setFont(QFont('Helvetica', 12))
         self.font_size = QSpinBox()
         self.font_size.setRange(8, 24)
-        self.font_size.setValue(12)
+        self.font_size.setValue(self.font_size_default)
         self.font_size.setFont(QFont('Helvetica', 12))
         self.font_size.valueChanged.connect(self.update_input_font)
         

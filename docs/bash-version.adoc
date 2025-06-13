@@ -1,0 +1,143 @@
+= BashOut: A Simple Writing App Script
+
+BashOut is a simple Bash script designed to help you focus on writing by providing a clean interface and tracking your word count.
+It offers inspirational banners, notes, and style prompts to get your creative juices flowing.
+
+== Installation and Setup
+
+.  Fork and clone this repository.
+
+.  Make the scripts executable:
++
+```bash
+chmod +x /path/to/bashout.sh /path/to/styles.sh
+```
+
+== Usage
+
+The script can be started in two ways; <<interactive mode>> and <<automatic mode>>.
+
+=== Interactive mode
+
+The interactive mode will prompt you to choose a banner style.
+
+.  Run the script:
++
+```
+./bashout.sh
+```
++
+You will be presented with a menu to choose a banner style:
++
+1 - Inspirational quote:: Displays a random quote from `resources/quotes.txt`. Feel free to add more quotes to this file.
+
+2 - Note:: Prompts you to enter a note, which is then displayed as the banner.
+There is no length limit to the note.
+
+3 -  Style prompt:: Generates a random writing style prompt. For example:
++
+```bash
+Create a uplifting, steadily-paced story with an informal voice in past-tense from a second-person point of view.
+```
+
+[NOTE]
+====
+If you enter an invalid menu option, the writing interface will still launch but the banner will show:
+
+```bash
+No banner available.
+```
+====
+
+=== Automatic mode
+
+Automatic mode takes the banner choice as an argument from the invocation command, bypassing the menu.
+
+. Run the script:
++
+```bash
+./bashout.sh <N>
+```
++
+Where `<N>` is the number of the banner style you want as listed in the previous section.
+For example:
++
+```bash
+./bashout.sh 1
+```
++
+This command would launch the script with the inspirational quote banner style.
+
+[NOTE]
+====
+If you pass an invalid argument, the writing interface will still launch but the banner will show:
+
+```bash
+No banner available.
+```
+====
+
+== Writing interface
+
+While in the writing interface, the script:
+
+. Clears the screen.
+
+. Displays the chosen banner.
+
+. Displays the last sentence you wrote (if any).
+
+. Shows your session and total word counts.
+
+. Prompts you for a new sentence.
+
+image::docs/interface.png[]
+
+== Writing text
+
+. Type (and edit) your text as you normally would.
+
+. When you finish a line or a paragraph, press the `[Enter]` key.
+The script will:
++
+.. Clear your text from the interface.
+
+.. Save it to a local file (`~/Documents/output.txt`).
+
+.. Update the last sentence display with the latest entry.
+
+.. Increment the total and session word counts appropriately.
+
+. The interface will be clear and ready for further text to be typed.
+
+. To exit the script, press `Ctrl+C`.
+Be sure to hit `[Enter]` before you do to save your latest input.
+
+== Configuration and Customization
+
+=== `.gitignore`
+
+By default, the `resources/` directory (except for `quotes.txt`) directory is ignored by Git.
+
+=== Banner Color
+
+Change the banner text color by modifying a `printf` command in `bashout.sh`.
+For example, to change to red:
+
+```bash
+printf "\e[91m%s\e[0m\n" "$BANNER"
+```
+
+Refer to an ANSI escape code chart for other color codes.
+
+=== Other Tweaks
+
+Custom Banners:: Add more banner options by creating new text files in the `resources` directory and updating the `case` statement in `bashout.sh`.
+
+Modifying Style Prompts:: Edit the lists in `styles.sh` (e.g., `voicelist`, `tonelist`) to customize the generated prompts.
+
+Saving Location:: Change the `SAVE_FILE` variable in `bashout.sh` to save your writing to a different location.
+
+Resetting Word Count:: To reset the total word count, delete or move `work/output.txt`.
+The script will create a new file on next run.
+The session word count always starts at zero.
